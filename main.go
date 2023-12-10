@@ -2,8 +2,11 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"os"
 
 	"github.com/mbark/aoc2023/day1"
+	"github.com/mbark/aoc2023/day10"
 	"github.com/mbark/aoc2023/day2"
 	"github.com/mbark/aoc2023/day3"
 	"github.com/mbark/aoc2023/day4"
@@ -44,5 +47,10 @@ func main() {
 		day8.Day8(input)
 	case 9:
 		day9.Day9(input)
+	case 10:
+		day10.Day10(input)
+	default:
+		fmt.Println("not implemented")
+		os.Exit(1)
 	}
 }
