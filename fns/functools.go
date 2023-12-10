@@ -1,8 +1,8 @@
 package fns
 
-func Every[T any](s []T, fn func(i int) bool) bool {
+func Every[T any](s []T, fn func(t T) bool) bool {
 	for i := 0; i < len(s); i++ {
-		if !fn(i) {
+		if !fn(s[i]) {
 			return false
 		}
 	}
@@ -10,9 +10,9 @@ func Every[T any](s []T, fn func(i int) bool) bool {
 	return true
 }
 
-func Some[T any](s []T, fn func(i int) bool) bool {
+func Some[T any](s []T, fn func(t T) bool) bool {
 	for i := 0; i < len(s); i++ {
-		if fn(i) {
+		if fn(s[i]) {
 			return true
 		}
 	}
@@ -32,6 +32,15 @@ func Associate[V any, K comparable](s []V, fn func(t V) K) map[K]V {
 	m := make(map[K]V, len(s))
 	for _, t := range s {
 		m[fn(t)] = t
+	}
+	return m
+}
+
+func AsMap[T any, V any, K comparable](s []T, fn func(t T) (K, V)) map[K]V {
+	m := make(map[K]V, len(s))
+	for _, t := range s {
+		k, v := fn(t)
+		m[k] = v
 	}
 	return m
 }

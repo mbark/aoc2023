@@ -10,6 +10,7 @@ import (
 	"github.com/mbark/aoc2023/day5"
 	"github.com/mbark/aoc2023/day6"
 	"github.com/mbark/aoc2023/day7"
+	"github.com/mbark/aoc2023/day8"
 	"github.com/mbark/aoc2023/util"
 )
 
@@ -38,5 +39,7 @@ func main() {
 		day6.Day6(input)
 	case 7:
 		day7.Day7(input)
+	case 8:
+		day8.Day8(input)
 	}
 }
