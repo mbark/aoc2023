@@ -7,6 +7,7 @@ import (
 
 	"github.com/mbark/aoc2023/day1"
 	"github.com/mbark/aoc2023/day10"
+	"github.com/mbark/aoc2023/day11"
 	"github.com/mbark/aoc2023/day2"
 	"github.com/mbark/aoc2023/day3"
 	"github.com/mbark/aoc2023/day4"
@@ -49,6 +50,8 @@ func main() {
 		day9.Day9(input)
 	case 10:
 		day10.Day10(input)
+	case 11:
+		day11.Day11(input)
 	default:
 		fmt.Println("not implemented")
 		os.Exit(1)

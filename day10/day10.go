@@ -86,11 +86,19 @@ func Day10(input string) {
 			}
 		}
 
+		for x, t := range nextRow {
+			if t == '#' {
+				nextRow[x] = '.'
+			}
+		}
 		doubledRows = append(doubledRows, row, string(nextRow))
 	}
 
 	m2 := maps.New[Tile](strings.Join(doubledRows, "\n"), func(_, _ int, b byte) Tile { return Tile(b) })
 	fmt.Printf("second: %d\n", second(m2))
+
+	fmt.Println(m)
+	fmt.Println(m2)
 }
 
 func first(m maps.Map[Tile]) int {
