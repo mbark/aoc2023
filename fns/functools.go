@@ -10,6 +10,16 @@ func Every[T any](s []T, fn func(t T) bool) bool {
 	return true
 }
 
+func EveryIndex[T any](s []T, fn func(t T, idx int) bool) bool {
+	for i := 0; i < len(s); i++ {
+		if !fn(s[i], i) {
+			return false
+		}
+	}
+
+	return true
+}
+
 func Some[T any](s []T, fn func(t T) bool) bool {
 	for i := 0; i < len(s); i++ {
 		if fn(s[i]) {
