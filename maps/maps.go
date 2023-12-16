@@ -223,7 +223,12 @@ func (m Map[T]) String() string {
 	var sb strings.Builder
 	for _, row := range m.Cells {
 		for _, cell := range row {
-			sb.WriteString(fmt.Sprintf("%s", cell))
+			switch t := any(cell).(type) {
+			case byte:
+				sb.WriteByte(t)
+			default:
+				sb.WriteString(fmt.Sprintf("%s", cell))
+			}
 		}
 		sb.WriteString("\n")
 	}
