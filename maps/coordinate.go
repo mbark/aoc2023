@@ -74,6 +74,8 @@ func (c Coordinate) ManhattanDistance(co Coordinate) int {
 
 type Direction struct{ X, Y int }
 
+var NoDirection = Direction{}
+
 var (
 	Up    = Direction{Y: -1}
 	Right = Direction{X: 1}
@@ -101,6 +103,29 @@ func (d Direction) Rotate(direction Direction) Direction {
 		return order[(len(index)+index[d]-1)%len(index)]
 	default:
 		return d
+	}
+}
+
+func (d Direction) Opposite() Direction {
+	switch d {
+	case North:
+		return South
+	case East:
+		return West
+	case South:
+		return North
+	case West:
+		return East
+	case NorthEast:
+		return SouthWest
+	case NorthWest:
+		return NorthEast
+	case SouthEast:
+		return NorthWest
+	case SouthWest:
+		return NorthEast
+	default:
+		panic(fmt.Sprintf("unknown direction: %s", d))
 	}
 }
 
