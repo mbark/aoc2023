@@ -28,7 +28,14 @@ import (
 func main() {
 	var flagDay = flag.Int("day", 0, "use test input")
 	var flagTest = flag.Bool("test", false, "use test input")
+	var cpuprofile = flag.Bool("profile", false, "write cpu profile to file")
 	flag.Parse()
+
+	if *cpuprofile {
+		fmt.Println("using cpu profile")
+		fn := util.WithProfiling()
+		defer fn()
+	}
 
 	var input string
 	if !*flagTest {

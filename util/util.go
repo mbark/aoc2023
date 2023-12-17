@@ -1,7 +1,6 @@
 package util
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"runtime/pprof"
@@ -10,8 +9,6 @@ import (
 	"time"
 	"unicode/utf8"
 )
-
-var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 
 func ReadInput(in, splitBy string) []string {
 	trimmed := strings.Trim(in, "\n")
@@ -54,17 +51,15 @@ func WithTime() func() {
 }
 
 func WithProfiling() func() {
-	flag.Parse()
-	if *cpuprofile == "" {
-		return func() {}
-	}
-
-	f, err := os.Create(*cpuprofile)
+	f, err := os.Create("profile.out")
 	if err != nil {
 		panic(err)
 	}
 
-	pprof.StartCPUProfile(f)
+	err = pprof.StartCPUProfile(f)
+	if err != nil {
+		panic(err)
+	}
 	return pprof.StopCPUProfile
 }
 

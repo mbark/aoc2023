@@ -69,9 +69,9 @@ func (i item) key() key {
 func djikstra(m maps.Map[int], getDirections GetDirection) int {
 	start := maps.Coordinate{}
 	goal := maps.Coordinate{X: m.Columns - 1, Y: m.Rows - 1}
-	distances := make(map[key]int)
+	distances := make(map[key]int, len(m.Coordinates())*10)
 	var goalItem item
-	from := map[key]key{}
+	from := make(map[key]key, len(m.Coordinates())*10)
 
 	var pq queue.PriorityQueue[item]
 	heap.Init(&pq)
