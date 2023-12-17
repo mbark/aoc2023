@@ -2,8 +2,8 @@ package maps
 
 import "C"
 import (
-	"container/heap"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/mbark/aoc2023/util"
@@ -226,6 +226,8 @@ func (m Map[T]) String() string {
 			switch t := any(cell).(type) {
 			case byte:
 				sb.WriteByte(t)
+			case int:
+				sb.WriteString(strconv.Itoa(t))
 			default:
 				sb.WriteString(fmt.Sprintf("%s", cell))
 			}
@@ -250,47 +252,4 @@ func (m Map[T]) Stringf(sprintf func(c Coordinate, val T) string) string {
 
 func (m Map[T]) Length() int {
 	return m.Rows * m.Columns
-}
-
-type Item[T any] struct {
-	Value    T
-	Priority int
-	Index    int
-}
-
-type PriorityQueue[T any] []*Item[T]
-
-func (pq PriorityQueue[T]) Len() int { return len(pq) }
-
-func (pq PriorityQueue[T]) Less(i, j int) bool {
-	return pq[i].Priority < pq[j].Priority
-}
-
-func (pq PriorityQueue[T]) Swap(i, j int) {
-	pq[i], pq[j] = pq[j], pq[i]
-	pq[i].Index = i
-	pq[j].Index = j
-}
-
-func (pq *PriorityQueue[T]) Push(x interface{}) {
-	n := len(*pq)
-	item := x.(*Item[T])
-	item.Index = n
-	*pq = append(*pq, item)
-}
-
-func (pq *PriorityQueue[T]) Pop() interface{} {
-	old := *pq
-	n := len(old)
-	item := old[n-1]
-	old[n-1] = nil  // avoid memory leak
-	item.Index = -1 // for safety
-	*pq = old[0 : n-1]
-	return item
-}
-
-func (pq *PriorityQueue[T]) Update(item *Item[T], value T, priority int) {
-	item.Value = value
-	item.Priority = priority
-	heap.Fix(pq, item.Index)
 }
