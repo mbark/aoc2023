@@ -101,6 +101,25 @@ func first(m maps.Map[int]) int {
 		val := n.Value
 
 		for _, dir := range []maps.Direction{maps.Up, maps.Left, maps.Right, maps.Down} {
+			switch val.direction {
+			case maps.Up:
+				if dir == maps.Down {
+					continue
+				}
+			case maps.Down:
+				if dir == maps.Up {
+					continue
+				}
+			case maps.Left:
+				if dir == maps.Right {
+					continue
+				}
+			case maps.Right:
+				if dir == maps.Left {
+					continue
+				}
+			}
+
 			a := dir.Apply(val.c)
 			if !m.Exists(a) {
 				continue
@@ -200,6 +219,24 @@ func second(m maps.Map[int]) int {
 		}
 
 		for _, dir := range directions {
+			switch val.direction {
+			case maps.Up:
+				if dir == maps.Down {
+					continue
+				}
+			case maps.Down:
+				if dir == maps.Up {
+					continue
+				}
+			case maps.Left:
+				if dir == maps.Right {
+					continue
+				}
+			case maps.Right:
+				if dir == maps.Left {
+					continue
+				}
+			}
 			a := dir.Apply(val.c)
 			if !m.Exists(a) {
 				continue
