@@ -133,6 +133,10 @@ func (d Direction) Apply(c Coordinate) Coordinate {
 	return Coordinate{X: c.X + d.X, Y: c.Y + d.Y}
 }
 
+func (d Direction) ApplyN(c Coordinate, n int) Coordinate {
+	return Coordinate{X: c.X + n*d.X, Y: c.Y + n*d.Y}
+}
+
 func (d Direction) String() string {
 	switch d {
 	case Left:
