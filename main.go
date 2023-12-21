@@ -15,6 +15,7 @@ import (
 	"github.com/mbark/aoc2023/day16"
 	"github.com/mbark/aoc2023/day17"
 	"github.com/mbark/aoc2023/day18"
+	"github.com/mbark/aoc2023/day19"
 	"github.com/mbark/aoc2023/day2"
 	"github.com/mbark/aoc2023/day3"
 	"github.com/mbark/aoc2023/day4"
@@ -80,6 +81,8 @@ func main() {
 		day17.Day17(input)
 	case 18:
 		day18.Day18(input)
+	case 19:
+		day19.Day19(input)
 	default:
 		fmt.Println("not implemented")
 		os.Exit(1)
