@@ -10,6 +10,16 @@ func Every[T any](s []T, fn func(t T) bool) bool {
 	return true
 }
 
+func EveryMap[K comparable, V any](s map[K]V, fn func(key K, val V) bool) bool {
+	for k, v := range s {
+		if !fn(k, v) {
+			return false
+		}
+	}
+
+	return true
+}
+
 func EveryIndex[T any](s []T, fn func(t T, idx int) bool) bool {
 	for i := 0; i < len(s); i++ {
 		if !fn(s[i], i) {
