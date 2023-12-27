@@ -32,6 +32,10 @@ func (c Cuboid) Contains(co Cuboid) bool {
 		c.From.Z <= co.From.Z && c.To.Z >= co.To.Z
 }
 
+func (c Cuboid) Move(dir Direction3D) Cuboid {
+	return Cuboid{From: dir.Apply(c.From), To: dir.Apply(c.To)}
+}
+
 func (c Cuboid) String() string {
 	return fmt.Sprintf("(x=%d..%d,y=%d..%d,z=%d..%d)",
 		c.From.X, c.To.X, c.From.Y, c.To.Y, c.From.Z, c.To.Z)
@@ -103,16 +107,9 @@ func (c Cuboid) Subdivide(co Cuboid) ([]Cuboid, *Cuboid, []Cuboid) {
 }
 
 func (c Cuboid) IsOverlapping(co Cuboid) bool {
-	minx := maths.MaxInt(c.From.X, co.From.X)
-	miny := maths.MaxInt(c.From.Y, co.From.Y)
-	minz := maths.MaxInt(c.From.Z, co.From.Z)
-
-	return c.From.X <= minx && c.To.X >= minx &&
-		co.From.X <= minx && co.To.X > minx &&
-		c.From.Y <= miny && c.To.Y >= miny &&
-		co.From.Y <= miny && co.To.Y > miny &&
-		c.From.Z <= minz && c.To.Z >= minz &&
-		co.From.Z <= minz && co.To.Z > minz
+	return c.To.X >= co.From.X && c.From.X <= co.To.X &&
+		c.To.Y >= co.From.Y && c.From.Y <= co.To.Y &&
+		c.To.Z >= co.From.Z && c.From.Z <= co.To.Z
 }
 
 func (c Cuboid) Overlapping(co Cuboid) *Cuboid {

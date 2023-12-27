@@ -135,3 +135,60 @@ func (r RotationFacing) Apply(c Coordinate3D) Coordinate3D {
 func (c Coordinate3D) ApplyRotation(x, y, z int) Coordinate3D {
 	return Coordinate3D{X: x * c.X, Y: y * c.Y, Z: z * c.Z}
 }
+
+type Direction3D struct{ Z, X, Y int }
+
+var (
+	ZDown = Direction3D{Z: 1}
+	ZUp   = Direction3D{Z: -1}
+	XDown = Direction3D{X: 1}
+	XUp   = Direction3D{X: -1}
+	YDown = Direction3D{Y: 1}
+	YUp   = Direction3D{Y: -1}
+)
+
+func (d Direction3D) Opposite() Direction3D {
+	switch d {
+	case ZDown:
+		return ZUp
+	case ZUp:
+		return ZDown
+	case XDown:
+		return XUp
+	case XUp:
+		return XDown
+	case YDown:
+		return YUp
+	case YUp:
+		return YDown
+	default:
+		panic(fmt.Sprintf("unknown direction: %s", d))
+	}
+}
+
+func (d Direction3D) Apply(c Coordinate3D) Coordinate3D {
+	return Coordinate3D{Z: c.Z + d.Z, X: c.X + d.X, Y: c.Y + d.Y}
+}
+
+func (d Direction3D) ApplyN(c Coordinate3D, n int) Coordinate3D {
+	return Coordinate3D{Z: c.Z + n*d.Z, X: c.X + n*d.X, Y: c.Y + n*d.Y}
+}
+
+func (d Direction3D) String() string {
+	switch d {
+	case ZDown:
+		return "Zv"
+	case ZUp:
+		return "Z^"
+	case XDown:
+		return "Xv"
+	case XUp:
+		return "X^"
+	case YDown:
+		return "Yv"
+	case YUp:
+		return "Y^"
+	}
+
+	return ""
+}
