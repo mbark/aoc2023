@@ -17,9 +17,9 @@ type Coordinate3D struct {
 func NewCoordinate3D(s string) Coordinate3D {
 	split := strings.Split(s, ",")
 	return Coordinate3D{
-		X: util.Str2Int(split[0]),
-		Y: util.Str2Int(split[1]),
-		Z: util.Str2Int(split[2]),
+		X: util.Str2Int(strings.TrimSpace(split[0])),
+		Y: util.Str2Int(strings.TrimSpace(split[1])),
+		Z: util.Str2Int(strings.TrimSpace(split[2])),
 	}
 }
 
